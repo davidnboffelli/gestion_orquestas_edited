@@ -16,6 +16,10 @@
       <div class="dashboard-card-icon"><Theater :size="48"></Theater></div>
       <div><h1>Shows</h1></div>
     </router-link>
+    <router-link class="dashboard-card" :to="messagesRoute">
+      <div class="dashboard-card-icon"><Theater :size="48"></Theater></div>
+      <div><h1>Mensajes</h1></div>
+    </router-link>
   </div>
 </template>
 <script>
@@ -47,6 +51,10 @@ export default {
     },
     showsRoute() {
       const route = this.$router.options.routes.find(r => r.name === "ShowsManagement");
+      return route;
+    },
+    messagesRoute() {
+      const route = this.$router.options.routes.find(r => r.name === "MessagesManagement");
       return route;
     },
   }

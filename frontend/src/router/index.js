@@ -47,7 +47,7 @@ const routes = [
   },
   {
     path: '/message',
-    name: 'Message',
+    name: 'Contacto',
     component: () => import(/* webpackChunkName: "register" */ '../views/MessageAdd.vue'),
     meta: {
       title: 'Contacto',
@@ -505,6 +505,42 @@ const routes = [
           is_admin: true,
           link_name: 'Editar Show',
           title: 'Editar Show',
+        }
+      }
+    ]
+  },
+  {
+    path: '/messages',
+    name: 'MessagesManagement',
+    component: () => import('../views/messages/MessagesManagement'),
+    meta: {
+      requiresAuth: true,
+      is_admin: true,
+      link_name: 'Mensajes',
+      title: 'Mensajes',
+    },
+    redirect: { name: 'MessageList' },
+    children: [
+      {
+        path: '',
+        name: 'MessageList',
+        component: () => import('../views/messages/MessagesList'),
+        meta: {
+          requiresAuth: true,
+          is_admin: true,
+          link_name: 'Mensajes',
+          title: 'Mensajes',
+        }
+      },
+      {
+        path: 'edit/:id',
+        name: 'EditarMessage',
+        component: () => import(/* webpackChunkName: "useradd" */ '../views/messages/MessageAdd.vue'),
+        meta: {
+          requiresAuth: true,
+          is_admin: true,
+          link_name: 'Editar Mensajes',
+          title: 'Editar Mensajes',
         }
       }
     ]

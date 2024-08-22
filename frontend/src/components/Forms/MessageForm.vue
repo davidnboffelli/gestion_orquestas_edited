@@ -50,15 +50,19 @@
             <label>Código Postal</label>
             <small class="is-invalid" v-if="$v.zipcode.$invalid">Debe ingresar el código postal</small>
           </div>
+          <div class="d-flex justify-content-between">
+            <label>Visto</label>
+            <small class="is-invalid" v-if="$v.checked.$invalid">Debe ingresar el código postal</small>
+          </div>
           <text-input
-            v-model.trim="zipcode"
-            :class="{ 'is-invalid': $v.zipcode.$error }"
+            v-model.trim="checked"
+            :class="{ 'is-invalid': $v.checked.$error }"
             type="text"
           />
         </div>
         <div class="mb-3 col-md-6 col-xs-12">
           <button v-on:click="register" type="button" class="btn btn-primary mb-3">
-            Enviar Mensaje
+            Guardar
           </button>
         </div>
       </div>
@@ -66,12 +70,27 @@
   </div>
 </template>
 <script>
-import axios from "@/helpers/axiosInterceptor";
-import { validationMixin } from "vuelidate";
-import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
-import TextInput from "../components/UI/TextInput.vue";
+import moment from 'moment';
+
+import { validationMixin } from 'vuelidate';
+import { required, integer, minValue } from 'vuelidate/lib/validators';
+import afterCurrentDateValidator from '@/helpers/vuelidate/afterCurrentDateValidator.js';
+
+import TextInput from '../UI/TextInput.vue';
+import TextAreaInput from '../UI/TextAreaInput.vue';
+import DateInput from '../UI/DateInput.vue';
+import CheckInput from '../UI/CheckInput.vue';
+import SelectInput from '../UI/SelectInput.vue';
+
 export default {
-  components: { TextInput },
+  props: ['editMessage', 'mode'],
+  components: {
+    TextInput,
+    TextAreaInput,
+    DateInput,
+    CheckInput,
+    SelectInput,
+  },
   mixins: [validationMixin],
   data() {
     return {
@@ -105,46 +124,14 @@ export default {
       required
     }
   },
-  computed: {
-    contacto() {
-      return {
-        motive: this.motive,
-        message: this.message,
-        name: this.name,
-        email: this.email,
-        phone: this.phone,
-        zipcode: this.zipcode
-      };
-    }
-  },
   methods: {
-    async register() {
+    register() {
+      console.log(this.motive);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        axios
-          .post("/api/messages", this.contacto)
-          .then(async resp => {
-            this.$router.replace({ path: "/" });
-          })
-          .catch(error => {
-            this.$toastr.e(error.response.data.message);
-          });
+        this.$emit('register', this.motive);
       }
-    }
-  }
+    },
+  },
 };
 </script>
-<style lang="scss" scoped>
-#message-container {
-  padding: 50px;
-}
-
-@media (min-width: 1200px) {
-  #message-container {
-    width: 700px;
-  }
-  small.is-invalid {
-    color: #dc3545;
-  }
-}
-</style>

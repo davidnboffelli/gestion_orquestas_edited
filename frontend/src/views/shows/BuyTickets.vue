@@ -74,7 +74,7 @@ export default {
         quantity: this.quantity,
         show_id: this.show.id
       })
-      .then(response => {
+      .then(async response => {
         // Aquí puedes agregar alguna lógica si necesitas realizar alguna acción después de guardar el ticket
         console.log("Ticket guardado exitosamente:", response.data);
         this.$router.push({ path: "/tickets" });

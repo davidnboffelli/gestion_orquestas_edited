@@ -1,5 +1,9 @@
 package com.gruposei.gestion_orquestas.model;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +24,11 @@ public class Message {
     private String phone;
     private String zipcode;
     private boolean checked = false;
+    private Date date;
 
     public Message() {
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.systemDefault());
+        this.date = Date.from(zonedDateTime.toInstant());
     }
 
     public Long getId() {
@@ -86,5 +93,13 @@ public class Message {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public Date getPublicDate() {
+        return date;
+    }
+
+    public void setPublicDate(Date date) {
+        this.date = date;
     }
 }
