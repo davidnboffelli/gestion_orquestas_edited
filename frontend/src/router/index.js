@@ -46,6 +46,16 @@ const routes = [
     },
   },
   {
+    path: '/message',
+    name: 'Message',
+    component: () => import(/* webpackChunkName: "register" */ '../views/MessageAdd.vue'),
+    meta: {
+      title: 'Contacto',
+      guest: true,
+      link_name: 'Contacto',
+    },
+  },
+  {
     path: '/new/:id',
     name: 'NewView',
     component: () => import( /* webpackChunkName: "register" */ '../views/news/NewView.vue'),

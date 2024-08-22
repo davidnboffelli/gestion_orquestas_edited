@@ -27,6 +27,9 @@
       <div class="d-flex justify-content-between">
         <span>Charagua, suena la orilla</span>
         <span class="mr-1">
+          <router-link :to="{ name: 'Contacto' }">Contacto</router-link>
+        </span>
+        <span class="mr-1">
           <router-link :to="{ name: 'IndiceDocs' }">Ayuda</router-link>
         </span>
       </div>
