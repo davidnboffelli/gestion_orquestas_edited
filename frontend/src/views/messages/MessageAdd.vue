@@ -34,16 +34,19 @@ export default {
       request.then(resp => {
         this.aMessage = resp.data;
         this.mode = "edit";
+      })
+      .catch(error => {
+        console.error("Error al cargar el mensaje:", error);
       });
     }
   },
   methods: {
     async handleSubmission(aMessage) {
       await axios.post("/api/messages", aMessage);
-      this.$router.replace({ name: "MessagesList" });
+      this.$router.replace({ name: "MessageList" });
     },
     goBack() {
-      this.$router.replace({ name: 'MessagesList' });
+      this.$router.replace({ name: 'MessageList' });
     },
   }
 };
