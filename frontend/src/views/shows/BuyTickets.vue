@@ -44,7 +44,7 @@ import axios from "@/helpers/axiosInterceptor";
 export default {
   data() {
     return {
-      quantity: 0,
+      quantity: 1,
       show: null,
       processing: false
     };
