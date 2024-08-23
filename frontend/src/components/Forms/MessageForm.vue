@@ -6,16 +6,16 @@
         </div>
         <text-input
           v-model.trim="message.motive"
-          :class="{ 'is-invalid': $v.motive.$error }"
+          :class="{ 'is-invalid': $v.message.motive.$error }"
           type="text"
         />
       </div>
       <div class="mb-3 col-md-12 col-xs-12">
         <div class="d-flex justify-content-between">
           <label>Mensaje</label>
-          <small class="is-invalid" v-if="$v.message.$invalid">Mínimo 20 caracteres</small>
+          <small class="is-invalid" v-if="$v.message.message.$invalid">Mínimo 20 caracteres</small>
         </div>
-        <text-input v-model.trim="message" :class="{ 'is-invalid': $v.message.$error }" />
+        <text-input v-model.trim="message.message" :class="{ 'is-invalid': $v.message.message.$error }" />
       </div>
       <div class="mb-3 col-md-6 col-xs-12">
         <div class="d-flex justify-content-between">
@@ -48,15 +48,15 @@
           <small class="is-invalid" v-if="$v.message.zipcode.$invalid">Debe ingresar el código postal</small>
         </div>
         <text-input v-model.trim="message.zipcode" :class="{ 'is-invalid': $v.message.zipcode.$error }" />
-        <div class="d-flex justify-content-between">
-          <label>Visto</label>
-          <small class="is-invalid" v-if="$v.message.checked.$invalid">Debe ingresar el código postal</small>
+        <div class="mb-3 col-md-12 col-xs-12">
+          <div class="d-flex justify-content-between">
+            <label>Visto</label>
+          </div>
+          <input
+            type="checkbox"
+            v-model="message.checked"
+          />
         </div>
-        <text-input
-          v-model.trim="message.checked"
-          :class="{ 'is-invalid': $v.message.checked.$error }"
-          type="text"
-        />
       </div>
       <div class="mb-3 col-md-6 col-xs-12">
         <button v-on:click="register" type="button" class="btn btn-primary mb-3">
@@ -68,7 +68,7 @@
 <script>
 
 import { validationMixin } from 'vuelidate';
-import { required, integer, minValue } from 'vuelidate/lib/validators';
+import { required, minLength, email, integer, minValue } from 'vuelidate/lib/validators';
 import afterCurrentDateValidator from '@/helpers/vuelidate/afterCurrentDateValidator.js';
 
 import TextInput from '../UI/TextInput.vue';
@@ -100,7 +100,7 @@ export default {
         motive: "",
         message: "",
         name: "",
-        date: null,
+        // date: null,
         email: "",
         phone: "",
         zipcode: "",
@@ -133,11 +133,11 @@ export default {
     }
   },
   methods: {
-    register() {
+    submit() {
       console.log(this.message);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$emit('register', this.message);
+        this.$emit('submit', this.message);
       }
     },
   },

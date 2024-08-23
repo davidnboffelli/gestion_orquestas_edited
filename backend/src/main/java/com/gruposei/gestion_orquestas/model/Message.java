@@ -95,11 +95,11 @@ public class Message {
         this.checked = checked;
     }
 
-    public Date getPublicDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setPublicDate(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

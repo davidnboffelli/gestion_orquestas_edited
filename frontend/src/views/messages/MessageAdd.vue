@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-secondary float-rigth" v-on:click="goBack">Volver</button>
     </div>
-    <message-form :mode="mode" :edit-message="aMessage" v-on:submit="handleSubmission($event)"></message-form>
+    <message-form :mode="mode" :edit-message="messages" v-on:submit="handleSubmission($event)"></message-form>
   </div>
 </template>
 <script>
@@ -12,17 +12,20 @@ import axios from "@/helpers/axiosInterceptor";
 export default {
   data() {
     return {
-      aMessage: {
-        motive: "",
-        message: "",
-        name: "",
+      messages: {
+        checked: false,
+        date: null,
         email: "",
+        id:null,
+        message: "",
+        motive: "",
+        name: "",
         phone: "",
-        zipcode: ""
+        zipCode: ""
       },
       mode: "add"
     };
-  },
+  }, 
   components: {
     MessageForm
   },
@@ -32,8 +35,10 @@ export default {
         params: { id: this.$route.params.id }
       });
       request.then(resp => {
-        this.aMessage = resp.data;
+        console.log(resp);
+        this.messages = resp.data;
         this.mode = "edit";
+        console.log(this.messages); // Verifica los valores
       })
       .catch(error => {
         console.error("Error al cargar el mensaje:", error);
@@ -41,8 +46,8 @@ export default {
     }
   },
   methods: {
-    async handleSubmission(aMessage) {
-      await axios.post("/api/messages", aMessage);
+    async handleSubmission(messages) {
+      await axios.post("/api/messages", messages);
       this.$router.replace({ name: "MessageList" });
     },
     goBack() {

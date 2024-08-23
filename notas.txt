@@ -19,8 +19,4 @@ Como admin, poder acceder al listado de mensajes y marcarlos como "Checkeados"
         En router, agregar la ruta a la tabla de mensajes
         Agregar acceso a la vista nueva desde el dashboard de admin
 
-
-
-Falta:
-    - Poder entrar y editar un mensaje
-    - Que aparezca un mensaje de procesando entradas al comprar
+Si esto no es posible, al menos corroborar que el mensaje fue grabado ingresando directamente a la base de datos y viendo el mensaje.

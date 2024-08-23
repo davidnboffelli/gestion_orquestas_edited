@@ -64,6 +64,7 @@ export default {
     axios.get("/api/shows", { params: { id: showId } }).then((resp) => {
       this.show = resp.data;
       this.loading = false;
+      this.processing =false;
     });
   },
   methods: {
